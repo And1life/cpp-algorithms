@@ -7,6 +7,7 @@
 #include <iterator>
 #include <algorithms/search/linear_search.hpp>
 
+
 using namespace algorithm::search;
 
 class LinearSearchTest : public ::testing::Test
@@ -22,7 +23,7 @@ protected:
 
 TEST_F(LinearSearchTest, Found_FirstPosition)
 {
-    EXPECT_TRUE(linear_search(vec_sorted.begin(), vec_sorted.end(), 0));
+    EXPECT_TRUE(linear_search(vec_sorted.begin(), vec_sorted.end(), 1));
     EXPECT_TRUE(linear_search(vec_unsorted.begin(), vec_unsorted.end(), 5));
     EXPECT_TRUE(linear_search(lst.begin(), lst.end(), 10));
     EXPECT_TRUE(linear_search(arr.begin(), arr.end(), 1));
@@ -38,3 +39,8 @@ TEST_F(LinearSearchTest, Found_MiddlePosition)
     EXPECT_TRUE(linear_search(set_unique.begin(), set_unique.end(), 5));
 }
 
+
+int main(int argc, char** argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
