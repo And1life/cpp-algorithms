@@ -39,6 +39,68 @@ TEST_F(LinearSearchTest, Found_MiddlePosition)
     EXPECT_TRUE(linear_search(set_unique.begin(), set_unique.end(), 5));
 }
 
+TEST_F(LinearSearchTest, Found_LastPosition)
+{
+    EXPECT_TRUE(linear_search(vec_sorted.begin(), vec_sorted.end(), 9));
+    EXPECT_TRUE(linear_search(vec_unsorted.begin(), vec_unsorted.end(), 10));
+    EXPECT_TRUE(linear_search(lst.begin(), lst.end(), 40));
+    EXPECT_TRUE(linear_search(arr.begin(), arr.end(), 4));
+    EXPECT_TRUE(linear_search(set_unique.begin(), set_unique.end(), 9));
+}
+
+TEST_F(LinearSearchTest, NotFound)
+{
+    EXPECT_FALSE(linear_search(vec_sorted.begin(), vec_sorted.end(), 11));
+    EXPECT_FALSE(linear_search(vec_unsorted.begin(), vec_unsorted.end(), 54));
+    EXPECT_FALSE(linear_search(lst.begin(), lst.end(), 78));
+    EXPECT_FALSE(linear_search(arr.begin(), arr.end(), -4));
+    EXPECT_FALSE(linear_search(set_unique.begin(), set_unique.end(), 71));
+}
+
+TEST_F(LinearSearchTest, EmptyRange) 
+{
+    std::vector<int> empty;
+    EXPECT_FALSE(linear_search(empty.begin(), empty.end(), 42));
+}
+
+TEST_F(LinearSearchTest, SingleElement_Found)
+{
+    std::vector<int> single{42};
+    EXPECT_TRUE(linear_search(single.begin(), single.end(), 42));
+}
+
+TEST_F(LinearSearchTest, SingleElement_NotFound) 
+{
+    std::vector<int> single{42};
+    EXPECT_FALSE(linear_search(single.begin(), single.end(), 99));
+}
+
+TEST_F(LinearSearchTest, EqualElements) 
+{
+    std::vector<int> equals{5, 5, 5, 5};
+    EXPECT_TRUE(linear_search(equals.begin(), equals.end(), 5));
+}
+
+TEST_F(LinearSearchTest, DifferentTypes) 
+{
+    std::vector<size_t> sizes{10, 20, 30};
+    EXPECT_TRUE(linear_search(sizes.begin(), sizes.end(), 20));
+}
+
+
+TEST_F(LinearSearchTest, Strings) 
+{
+    std::vector<std::string> words{"cat", "dog", "bird"};
+    EXPECT_TRUE(linear_search(words.begin(), words.end(), "dog"));
+    EXPECT_FALSE(linear_search(words.begin(), words.end(), "fish"));
+}
+
+
+TEST_F(LinearSearchTest, CArray) 
+{
+    int c_array[] = {100, 200, 300};
+    EXPECT_TRUE(linear_search(std::begin(c_array), std::end(c_array), 200));
+}
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
