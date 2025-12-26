@@ -15,29 +15,36 @@ if(VCPKG_TOOLCHAIN)
 endif()
 
 add_library(algorithms INTERFACE)
-target_include_directories(algorithms INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(algorithms 
+    INTERFACE 
+        ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
 
 enable_testing()
 
-
 find_package(GTest CONFIG QUIET)
 if(TARGET GTest::gtest)
-
     message(STATUS "GTest found via CONFIG (vcpkg)")
     set(GTEST_LINK_LIBS GTest::gtest GTest::gtest_main)
-    set(GTEST_INCLUDES "")
-elseif()
-
+else()
     find_package(GTest REQUIRED)
     message(STATUS "GTest found via MODULE (system)")
-    set(GTEST_LINK_LIBS ${GTEST_BOTH_LIBRARIES})
-    target_include_directories(test_linear_search PRIVATE ${GTEST_INCLUDE_DIRS})
+    set(GTEST_LINK_LIBS GTest::gtest GTest::gtest_main)
 endif()
 
-add_executable(test_linear_search tests/search/test_linear_search.cpp)
-target_link_libraries(test_linear_search PRIVATE 
-    algorithms 
-    ${GTEST_LINK_LIBS}
+set(TEST_SOURCES
+    tests/search/test_linear_search.cpp
+    tests/search/test_binary_search.cpp
+    # tests/sorting/test_quick_sort.cpp
+    # tests/graph/test_dijkstra.cpp
 )
 
-add_test(NAME test_linear_search COMMAND test_linear_search)
+add_executable(tests ${TEST_SOURCES})
+
+target_link_libraries(tests
+    PRIVATE
+        algorithms
+        ${GTEST_LINK_LIBS}
+)
+
+add_test(NAME cpp_algorithms_tests COMMAND tests)
