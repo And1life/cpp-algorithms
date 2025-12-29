@@ -36,6 +36,7 @@ set(TEST_SOURCES
     tests/search/test_linear_search.cpp
     tests/search/test_binary_search.cpp
     tests/search/test_interpolation_search.cpp
+    tests/search/test_naive_string_search.cpp
     # tests/sorting/test_quick_sort.cpp
     # tests/graph/test_dijkstra.cpp
 )

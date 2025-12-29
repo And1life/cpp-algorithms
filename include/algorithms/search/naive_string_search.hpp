@@ -19,7 +19,7 @@ size_t naive_string_search(const std::string& text, const std::string& pattern) 
     size_t n = text.size();
     size_t m = pattern.size();
 
-    for (size_t i = 0; i < n - m; ++i)
+    for (size_t i = 0; i <= n - m; ++i)
     {
         size_t j;
         for (j  = 0; j < m; ++j)
